@@ -1,0 +1,16 @@
+# Changelog
+
+Todas as mudanças públicas relevantes serão registradas neste arquivo.
+
+## 0.2.0 - não publicado
+
+- preservação do comportamento da versão 0.1.0;
+- modularização da CLI e dos contratos do reporter;
+- reconstrução do código-fonte da interface com comparação ao golden master;
+- geração reutilizável de PDF sem regras específicas de projeto consumidor;
+- exemplo Playwright mínimo e preparação para GitHub Packages.
+
+## 0.1.0 - baseline preservado
+
+- tarball original arquivado em `reference/` com checksums;
+- interface compilada original preservada como golden master.

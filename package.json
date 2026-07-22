@@ -1,6 +1,6 @@
 {
   "name": "@prognum/playwright-report",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Relatório Playwright reutilizável com interface adaptativa Prognum",
   "type": "module",
   "packageManager": "pnpm@11.11.0",
@@ -18,14 +18,18 @@
     "dist/ui",
     "pdf",
     "runtime",
+    "docs",
+    "CHANGELOG.md",
     "README.md"
   ],
   "scripts": {
     "build:ui": "node ./scripts/build-ui.mjs",
     "prepack": "node ./scripts/build-ui.mjs",
+    "prepublishOnly": "node ./scripts/check-publish.mjs && pnpm test && pnpm test:pack",
     "test": "node --test ./tests/unit/*.test.mjs ./tests/integration/*.test.mjs",
     "test:unit": "node --test ./tests/unit/*.test.mjs",
     "test:integration": "node --test ./tests/integration/*.test.mjs",
+    "test:example": "node ./scripts/validate-example.mjs",
     "test:pdf": "node --test ./tests/pdf/*.test.mjs",
     "test:ui": "node ./scripts/build-ui.mjs .tmp/ui-candidate && node --test ./tests/ui/*.test.mjs",
     "test:pack": "node ./scripts/smoke-packed-package.mjs"
@@ -52,7 +56,8 @@
     "node": ">=20"
   },
   "publishConfig": {
-    "access": "restricted"
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com"
   },
   "license": "UNLICENSED"
 }

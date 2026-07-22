@@ -1,0 +1,5 @@
+node_modules/
+.playwright/prognum-report-data/
+prognum-report/
+output/pdf/
+test-results/
