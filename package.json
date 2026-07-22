@@ -13,12 +13,17 @@
   },
   "files": [
     "bin",
+    "src/cli",
     "dist/ui",
     "runtime",
     "README.md"
   ],
   "scripts": {
-    "prepack": "node ./scripts/build-ui.mjs"
+    "prepack": "node ./scripts/build-ui.mjs",
+    "test": "node --test ./tests/unit/*.test.mjs ./tests/integration/*.test.mjs",
+    "test:unit": "node --test ./tests/unit/*.test.mjs",
+    "test:integration": "node --test ./tests/integration/*.test.mjs",
+    "test:pack": "node ./scripts/smoke-packed-package.mjs"
   },
   "peerDependencies": {
     "@playwright/test": ">=1.50.0"
