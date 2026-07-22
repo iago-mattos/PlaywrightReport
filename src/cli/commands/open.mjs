@@ -11,6 +11,7 @@ const mimeTypes = {
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
   ".png": "image/png",
+  ".pdf": "application/pdf",
   ".svg": "image/svg+xml",
   ".webm": "video/webm",
   ".zip": "application/zip",
@@ -69,4 +70,3 @@ export function openReport(cwd, config, shouldOpenBrowser = true) {
   });
   return server;
 }
-

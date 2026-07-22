@@ -102,6 +102,25 @@ async function smokeOpen(consumerRoot) {
     if (report.version !== 2) {
       throw new Error("Servidor retornou dados de relatório inesperados.");
     }
+    const pdfPath = resolve(
+      consumerRoot,
+      "prognum-report/playwright-report.pdf",
+    );
+    if (existsSync(pdfPath)) {
+      const pdfResponse = await fetch(
+        `http://127.0.0.1:${port}/playwright-report.pdf`,
+      );
+      if (
+        !pdfResponse.ok ||
+        pdfResponse.headers.get("content-type") !== "application/pdf"
+      ) {
+        throw new Error("Servidor não entregou o PDF com o tipo correto.");
+      }
+      const signature = Buffer.from(await pdfResponse.arrayBuffer()).subarray(0, 4);
+      if (signature.toString("ascii") !== "%PDF") {
+        throw new Error("Servidor retornou um arquivo que não é PDF.");
+      }
+    }
   } finally {
     child.kill("SIGTERM");
     await new Promise((resolvePromise) => {
@@ -162,6 +181,7 @@ try {
   for (const scriptName of [
     "pw:test:report",
     "pw:report:build",
+    "pw:report:pdf",
     "pw:report:open",
   ]) {
     if (!initializedPackage.scripts?.[scriptName]) {
@@ -207,6 +227,28 @@ try {
   ]) {
     if (!existsSync(resolve(consumerRoot, relativePath))) {
       throw new Error(`Arquivo não gerado no consumidor: ${relativePath}`);
+    }
+  }
+
+  if (
+    !existsSync(
+      resolve(
+        consumerRoot,
+        "node_modules/@prognum/playwright-report/pdf/build_report.py",
+      ),
+    )
+  ) {
+    throw new Error("Renderer de PDF ausente no pacote instalado.");
+  }
+
+  if (process.env.PROGNUM_REPORT_PYTHON) {
+    run(
+      "pnpm",
+      ["exec", "prognum-playwright-report", "pdf"],
+      consumerRoot,
+    );
+    if (!existsSync(resolve(consumerRoot, "output/pdf/playwright-report.pdf"))) {
+      throw new Error("PDF não gerado pelo pacote instalado.");
     }
   }
 

@@ -7,5 +7,12 @@ export const defaultConfig = {
   dataDir: ".playwright/prognum-report-data",
   outputDir: "prognum-report",
   port: 9324,
+  pdf: {
+    outputPath: "output/pdf/playwright-report.pdf",
+    includeInReport: true,
+    downloadLabel: "Baixar PDF",
+    author: "",
+    footerText: "",
+    metadataFields: {},
+  },
 };
-

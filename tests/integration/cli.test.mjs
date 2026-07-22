@@ -68,6 +68,7 @@ test("init é idempotente e preserva os scripts públicos", () => {
     assert.deepEqual(packageJson.scripts, {
       "pw:test:report": "prognum-playwright-report test",
       "pw:report:build": "prognum-playwright-report build",
+      "pw:report:pdf": "prognum-playwright-report pdf",
       "pw:report:open": "prognum-playwright-report open",
     });
 
@@ -77,6 +78,7 @@ test("init é idempotente e preserva os scripts públicos", () => {
       1,
     );
     assert.equal(gitignore.match(/prognum-report\//gu)?.length, 1);
+    assert.equal(gitignore.match(/output\/pdf\//gu)?.length, 1);
     assert.equal(existsSync(resolve(rootDir, "playwright.report.config.ts")), true);
     assert.equal(existsSync(resolve(rootDir, "prognum-report.config.mjs")), true);
   } finally {

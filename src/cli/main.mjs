@@ -4,6 +4,7 @@ import { loadConfig } from "./config.mjs";
 import { buildReport } from "./commands/build.mjs";
 import { initialize } from "./commands/init.mjs";
 import { openReport } from "./commands/open.mjs";
+import { buildPdfReport } from "./commands/pdf.mjs";
 import { runTests } from "./commands/test.mjs";
 
 function printHelp() {
@@ -14,11 +15,13 @@ Comandos:
   init             configura o projeto atual
   test [args]      executa Playwright e constrói o relatório
   build            constrói o relatório a partir da última execução
+  pdf              gera o PDF executivo a partir do relatório construído
   open             abre o relatório em um servidor local
 
 Exemplos:
   prognum-playwright-report init
   prognum-playwright-report test -- --project=smoke
+  prognum-playwright-report pdf
   prognum-playwright-report open
 `);
 }
@@ -40,6 +43,8 @@ export async function runCli({
         await loadConfig(cwd),
         argumentsAfterCommand,
       );
+    } else if (command === "pdf") {
+      buildPdfReport(cwd, await loadConfig(cwd));
     } else if (command === "open") {
       openReport(
         cwd,
@@ -54,4 +59,3 @@ export async function runCli({
     process.exitCode = 1;
   }
 }
-

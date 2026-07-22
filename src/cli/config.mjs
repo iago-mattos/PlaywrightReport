@@ -15,6 +15,10 @@ export async function loadConfig(cwd) {
     ...defaultConfig,
     ...(imported.default ?? {}),
     domains: imported.default?.domains ?? {},
+    pdf: {
+      ...defaultConfig.pdf,
+      ...(imported.default?.pdf ?? {}),
+      metadataFields: imported.default?.pdf?.metadataFields ?? {},
+    },
   };
 }
-

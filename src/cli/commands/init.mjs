@@ -31,6 +31,7 @@ function updatePackageScripts(cwd) {
     ...(packageJson.scripts ?? {}),
     "pw:test:report": "prognum-playwright-report test",
     "pw:report:build": "prognum-playwright-report build",
+    "pw:report:pdf": "prognum-playwright-report pdf",
     "pw:report:open": "prognum-playwright-report open",
   };
   writeFileSync(packagePath, `${JSON.stringify(packageJson, null, 2)}\n`, "utf8");
@@ -41,7 +42,11 @@ function updateGitignore(cwd) {
   const current = existsSync(gitignorePath)
     ? readFileSync(gitignorePath, "utf8")
     : "";
-  const entries = [".playwright/prognum-report-data/", "prognum-report/"];
+  const entries = [
+    ".playwright/prognum-report-data/",
+    "prognum-report/",
+    "output/pdf/",
+  ];
   const missing = entries.filter(
     (entry) => !current.split(/\r?\n/u).includes(entry),
   );
@@ -94,4 +99,3 @@ export function initialize(cwd) {
   console.log(`  Identidade visual: ${relative(cwd, appearancePath)}`);
   console.log("  Executar: npm run pw:test:report");
 }
-
