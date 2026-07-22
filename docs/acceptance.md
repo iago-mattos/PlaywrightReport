@@ -1,7 +1,7 @@
 # Homologação final
 
-Estado em 22 de julho de 2026: versão `0.2.0` homologada localmente e ainda não
-publicada.
+Estado em 22 de julho de 2026: versão `0.2.0` homologada e preparada para
+distribuição pública pela GitHub Release `v0.2.0`.
 
 ## Matriz de aceite
 
@@ -17,6 +17,7 @@ publicada.
 | Exemplo Playwright mínimo | `examples/minimal-playwright` e `test:example` | concluído |
 | Compatibilidade Playwright 1.50+ | peer dependency e consumidor real | concluído |
 | Node.js 20+ | contratos em Node 20, `engines` e CI no Node 24 LTS | concluído |
+| Distribuição versionada | tarball e SHA-256 em GitHub Release | preparado |
 | GitHub Packages privado | registry e acesso restrito | preparado |
 | Documentação operacional | README, manutenção e publicação | concluído |
 | Ausência de dados sensíveis | auditoria do tarball instalado | concluído |
@@ -44,8 +45,8 @@ tarball e auditoria de whitespace.
   golden master 0.1.0; ele não contém dados operacionais.
 - A execução local atual não publica, cria releases, tags ou repositórios.
 
-## Próxima ação externa
+## Publicação externa
 
-Após o primeiro push, validar o workflow de CI. A publicação continua sendo uma
-etapa separada e deve seguir `docs/github-packages.md` somente após nova
-autorização explícita.
+A distribuição adotada usa o tarball da GitHub Release, conforme
+`docs/releases.md`. Publicar no GitHub Packages continua sendo uma etapa
+separada e exige nova autorização explícita.

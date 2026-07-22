@@ -10,7 +10,37 @@ traces, steps, diagnóstico de falhas e PDF executivo opcional.
 - `@playwright/test` 1.50 ou superior;
 - Python 3 com ReportLab e Pillow apenas para a geração de PDF.
 
-## Instalação pelo GitHub Packages
+## Instalação recomendada
+
+Instale a versão empacotada da GitHub Release. A URL fixa a versão e o
+`pnpm-lock.yaml` do projeto consumidor preserva o artefato exato:
+
+```bash
+pnpm add -D \
+  @playwright/test@^1.50.0 \
+  "https://github.com/iago-mattos/PlaywrightReport/releases/download/v0.2.0/prognum-playwright-report-0.2.0.tgz"
+pnpm exec prognum-playwright-report init
+```
+
+O pacote instalado mantém o nome `@prognum/playwright-report`. Como o
+repositório e a release são públicos, essa forma de instalação não exige token.
+O checksum SHA-256 é publicado junto ao tarball para conferência opcional.
+
+Para validar o pacote local antes de uma release:
+
+```bash
+pnpm pack
+pnpm add -D ./prognum-playwright-report-0.2.0.tgz
+```
+
+Consulte [`docs/releases.md`](docs/releases.md) para instalação, atualização e
+verificação de integridade.
+
+## GitHub Packages
+
+O projeto também permanece preparado para uma publicação futura no GitHub
+Packages. Esse método só deve ser usado quando houver permissão para publicar no
+namespace `@prognum`.
 
 Configure o escopo em um `.npmrc` do projeto consumidor:
 
@@ -30,13 +60,6 @@ Instale o reporter e o Playwright:
 ```bash
 pnpm add -D @prognum/playwright-report@0.2.0 @playwright/test@^1.50.0
 pnpm exec prognum-playwright-report init
-```
-
-Para validar um tarball antes da publicação:
-
-```bash
-pnpm pack
-pnpm add -D ./prognum-playwright-report-0.2.0.tgz
 ```
 
 ## Início rápido
@@ -175,7 +198,9 @@ pnpm verify
 
 Detalhes da arquitetura e dos limites de manutenção estão em
 [`docs/maintenance.md`](docs/maintenance.md). O processo de versionamento,
-autenticação e publicação privada está em
+empacotamento e distribuição por release está em
+[`docs/releases.md`](docs/releases.md). A autenticação e publicação privada
+estão em
 [`docs/github-packages.md`](docs/github-packages.md). A matriz final de aceite
 está em [`docs/acceptance.md`](docs/acceptance.md).
 
