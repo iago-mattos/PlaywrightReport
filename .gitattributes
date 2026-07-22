@@ -1,0 +1,4 @@
+*.tgz binary
+dist/ui/** linguist-generated=true
+tests/fixtures/golden-ui/** linguist-generated=true
+
