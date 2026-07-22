@@ -20,7 +20,8 @@ publicada.
 | GitHub Packages privado | registry e acesso restrito | preparado |
 | Documentação operacional | README, manutenção e publicação | concluído |
 | Ausência de dados sensíveis | auditoria do tarball instalado | concluído |
-| Sem publicação ou remoto | trava de publicação e `git remote` vazio | preservado |
+| Remoto Git autorizado | `origin` em `iago-mattos/PlaywrightReport` | concluído |
+| Sem publicação do pacote | trava exige autorização explícita adicional | preservado |
 
 ## Comando de homologação
 
@@ -35,9 +36,9 @@ tarball e auditoria de whitespace.
 
 ## Limitações deliberadas
 
-- O campo `repository` permanece ausente até a definição e autorização do
-  remoto GitHub.
 - Publicação exige `PROGNUM_ALLOW_PUBLISH=1`, além do remoto autorizado.
+- O remoto pertence a `iago-mattos`; publicar como `@prognum` ainda exige que
+  a conta autenticada tenha permissão sobre esse namespace no GitHub Packages.
 - O renderer PDF depende de Python com ReportLab e Pillow.
 - O fallback textual `Portal → SCCI/AEJS` permanece por compatibilidade com o
   golden master 0.1.0; ele não contém dados operacionais.
@@ -45,5 +46,6 @@ tarball e auditoria de whitespace.
 
 ## Próxima ação externa
 
-Quando houver autorização, definir o nome do repositório GitHub, adicionar o
-campo `repository`, configurar o remoto e seguir `docs/github-packages.md`.
+Após o primeiro push, validar o workflow de CI. A publicação continua sendo uma
+etapa separada e deve seguir `docs/github-packages.md` somente após nova
+autorização explícita.

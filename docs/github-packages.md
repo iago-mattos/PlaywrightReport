@@ -11,17 +11,17 @@ pelo pacote.
 - registry: `https://npm.pkg.github.com`;
 - acesso: `restricted`;
 - licença: `UNLICENSED`;
-- remoto e campo `repository`: ainda não configurados.
+- remoto e campo `repository`: `iago-mattos/PlaywrightReport`.
 
-O namespace `@prognum` precisa pertencer à conta ou organização GitHub que
-receberá o pacote. Antes da primeira publicação, crie ou escolha o repositório
-remoto e adicione ao `package.json`:
+O namespace `@prognum` precisa pertencer a uma conta ou organização GitHub sobre
+a qual a conta publicadora tenha permissão. O repositório autorizado está
+registrado no `package.json`:
 
 ```json
 {
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prognum/NOME-DO-REPOSITORIO.git"
+    "url": "git+https://github.com/iago-mattos/PlaywrightReport.git"
   }
 }
 ```

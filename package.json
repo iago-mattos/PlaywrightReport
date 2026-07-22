@@ -2,6 +2,10 @@
   "name": "@prognum/playwright-report",
   "version": "0.2.0",
   "description": "Relatório Playwright reutilizável com interface adaptativa Prognum",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iago-mattos/PlaywrightReport.git"
+  },
   "type": "module",
   "packageManager": "pnpm@11.11.0",
   "bin": {
