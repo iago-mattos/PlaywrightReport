@@ -16,7 +16,7 @@ publicada.
 | Pacote gerado com pnpm | `pnpm pack` e consumidor temporário | concluído |
 | Exemplo Playwright mínimo | `examples/minimal-playwright` e `test:example` | concluído |
 | Compatibilidade Playwright 1.50+ | peer dependency e consumidor real | concluído |
-| Node.js 20+ | contratos e build em Node 20.20.2, `engines` e CI | concluído |
+| Node.js 20+ | contratos em Node 20, `engines` e CI no Node 24 LTS | concluído |
 | GitHub Packages privado | registry e acesso restrito | preparado |
 | Documentação operacional | README, manutenção e publicação | concluído |
 | Ausência de dados sensíveis | auditoria do tarball instalado | concluído |
