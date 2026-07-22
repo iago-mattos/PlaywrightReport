@@ -19,16 +19,30 @@
     "README.md"
   ],
   "scripts": {
+    "build:ui": "node ./scripts/build-ui.mjs",
     "prepack": "node ./scripts/build-ui.mjs",
     "test": "node --test ./tests/unit/*.test.mjs ./tests/integration/*.test.mjs",
     "test:unit": "node --test ./tests/unit/*.test.mjs",
     "test:integration": "node --test ./tests/integration/*.test.mjs",
+    "test:ui": "node ./scripts/build-ui.mjs .tmp/ui-candidate && node --test ./tests/ui/*.test.mjs",
     "test:pack": "node ./scripts/smoke-packed-package.mjs"
   },
   "peerDependencies": {
     "@playwright/test": ">=1.50.0"
   },
   "devDependencies": {
+    "@radix-ui/react-dialog": "1.1.20",
+    "@radix-ui/react-tabs": "1.1.18",
+    "@tailwindcss/vite": "4.3.3",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "lucide-react": "1.25.0",
+    "pixelmatch": "7.2.0",
+    "pngjs": "7.0.0",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "tailwind-merge": "3.6.0",
+    "tailwindcss": "4.3.3",
     "vite": "^8.1.5"
   },
   "engines": {

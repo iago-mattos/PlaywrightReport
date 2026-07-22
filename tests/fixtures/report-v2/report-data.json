@@ -1,0 +1,166 @@
+{
+  "version": 2,
+  "generatedAt": "2026-07-22T15:30:00.000Z",
+  "run": {
+    "status": "failed",
+    "startedAt": "2026-07-22T15:29:00.000Z",
+    "endedAt": "2026-07-22T15:30:00.000Z",
+    "duration": 60000,
+    "profile": "parity",
+    "node": "v20.19.0",
+    "platform": "darwin",
+    "total": 4
+  },
+  "summary": {
+    "passed": 1,
+    "failed": 1,
+    "skipped": 1,
+    "flaky": 1
+  },
+  "tests": [
+    {
+      "id": "failed-0",
+      "title": "falha determinística ao criar proposta",
+      "titlePath": ["tests/proposals/create.spec.ts", "Criação", "falha determinística ao criar proposta"],
+      "project": "chromium",
+      "file": "tests/proposals/create.spec.ts",
+      "line": 42,
+      "tags": ["@critical", "@proposal"],
+      "status": "failed",
+      "outcome": "unexpected",
+      "expectedStatus": "passed",
+      "duration": 12450,
+      "retry": 0,
+      "startedAt": "2026-07-22T15:29:10.000Z",
+      "errors": [
+        {
+          "message": "Expected: proposta ativa\nReceived: proposta bloqueada",
+          "stack": "Error: Expected: proposta ativa\nReceived: proposta bloqueada\n    at tests/proposals/create.spec.ts:42:7",
+          "snippet": "40 | const status = await page.getByTestId('status').textContent();\n41 |\n> 42 | expect(status).toBe('proposta ativa');",
+          "location": {
+            "file": "tests/proposals/create.spec.ts",
+            "line": 42,
+            "column": 7
+          }
+        }
+      ],
+      "annotations": [{"type": "issue", "description": "DEMO-42"}],
+      "attachments": [
+        {
+          "name": "screenshot da falha",
+          "contentType": "image/svg+xml",
+          "kind": "image",
+          "path": "evidence/screenshot.svg",
+          "size": 2480
+        },
+        {
+          "name": "vídeo da execução",
+          "contentType": "video/webm",
+          "kind": "video",
+          "path": "evidence/video.webm",
+          "size": 845312
+        },
+        {
+          "name": "trace",
+          "contentType": "application/zip",
+          "kind": "trace",
+          "path": "evidence/trace.zip",
+          "size": 1548320
+        },
+        {
+          "name": "contexto da execução",
+          "contentType": "application/json",
+          "kind": "other",
+          "path": "evidence/context.json",
+          "size": 128
+        }
+      ],
+      "steps": [
+        {
+          "title": "abrir cadastro de proposta",
+          "category": "test.step",
+          "duration": 1500,
+          "steps": [
+            {
+              "title": "clicar em Nova proposta",
+              "category": "pw:api",
+              "duration": 320,
+              "steps": []
+            }
+          ]
+        },
+        {
+          "title": "validar status final",
+          "category": "test.step",
+          "duration": 450,
+          "error": "Status observado não corresponde ao esperado",
+          "steps": []
+        }
+      ]
+    },
+    {
+      "id": "passed-0",
+      "title": "realiza autenticação com sucesso",
+      "titlePath": ["tests/auth/login.spec.ts", "Autenticação", "realiza autenticação com sucesso"],
+      "project": "chromium",
+      "file": "tests/auth/login.spec.ts",
+      "line": 18,
+      "tags": ["@smoke"],
+      "status": "passed",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "duration": 3200,
+      "retry": 0,
+      "startedAt": "2026-07-22T15:29:25.000Z",
+      "errors": [],
+      "annotations": [],
+      "attachments": [],
+      "steps": [
+        {
+          "title": "informar credenciais sintéticas",
+          "category": "test.step",
+          "duration": 800,
+          "steps": []
+        }
+      ]
+    },
+    {
+      "id": "flaky-1",
+      "title": "mantém navegação responsiva",
+      "titlePath": ["tests/mobile/accessibility.spec.ts", "Mobile", "mantém navegação responsiva"],
+      "project": "webkit",
+      "file": "tests/mobile/accessibility.spec.ts",
+      "line": 27,
+      "tags": ["@mobile"],
+      "status": "passed",
+      "outcome": "flaky",
+      "expectedStatus": "passed",
+      "duration": 8200,
+      "retry": 1,
+      "startedAt": "2026-07-22T15:29:32.000Z",
+      "errors": [],
+      "annotations": [],
+      "attachments": [],
+      "steps": []
+    },
+    {
+      "id": "skipped-0",
+      "title": "prepara dados opcionais",
+      "titlePath": ["tests/setup/bootstrap.spec.ts", "Preparação", "prepara dados opcionais"],
+      "project": "webkit",
+      "file": "tests/setup/bootstrap.spec.ts",
+      "line": 9,
+      "tags": ["@setup"],
+      "status": "skipped",
+      "outcome": "skipped",
+      "expectedStatus": "skipped",
+      "duration": 0,
+      "retry": 0,
+      "startedAt": "2026-07-22T15:29:50.000Z",
+      "errors": [],
+      "annotations": [],
+      "attachments": [],
+      "steps": []
+    }
+  ]
+}

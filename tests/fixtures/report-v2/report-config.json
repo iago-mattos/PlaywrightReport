@@ -1,0 +1,11 @@
+{
+  "productName": "Prognum Quality",
+  "reportTitle": "Relatório de paridade",
+  "accentColor": "oklch(0.56 0.205 257.3)",
+  "domains": {
+    "auth": "Autenticação",
+    "proposals": "Propostas",
+    "mobile": "Mobile e acessibilidade",
+    "setup": "Preparação"
+  }
+}
