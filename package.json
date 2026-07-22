@@ -32,7 +32,8 @@
     "test:example": "node ./scripts/validate-example.mjs",
     "test:pdf": "node --test ./tests/pdf/*.test.mjs",
     "test:ui": "node ./scripts/build-ui.mjs .tmp/ui-candidate && node --test ./tests/ui/*.test.mjs",
-    "test:pack": "node ./scripts/smoke-packed-package.mjs"
+    "test:pack": "node ./scripts/smoke-packed-package.mjs",
+    "verify": "node ./scripts/verify.mjs"
   },
   "peerDependencies": {
     "@playwright/test": ">=1.50.0"

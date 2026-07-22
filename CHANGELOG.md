@@ -8,7 +8,8 @@ Todas as mudanças públicas relevantes serão registradas neste arquivo.
 - modularização da CLI e dos contratos do reporter;
 - reconstrução do código-fonte da interface com comparação ao golden master;
 - geração reutilizável de PDF sem regras específicas de projeto consumidor;
-- exemplo Playwright mínimo e preparação para GitHub Packages.
+- exemplo Playwright mínimo e preparação para GitHub Packages;
+- homologação unificada, auditoria do tarball e CI somente de verificação.
 
 ## 0.1.0 - baseline preservado
 

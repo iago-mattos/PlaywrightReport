@@ -163,6 +163,7 @@ pnpm test:ui
 pnpm test:pdf
 pnpm test:example
 pnpm test:pack
+pnpm verify
 ```
 
 - `test`: contratos do reporter, runtime e CLI;
@@ -170,11 +171,13 @@ pnpm test:pack
 - `test:pdf`: geração real, paginação, conteúdo e download;
 - `test:example`: consumidor Playwright mínimo instalado pelo tarball;
 - `test:pack`: instalação e smoke test do pacote empacotado.
+- `verify`: executa a homologação completa e exige as dependências do PDF.
 
 Detalhes da arquitetura e dos limites de manutenção estão em
 [`docs/maintenance.md`](docs/maintenance.md). O processo de versionamento,
 autenticação e publicação privada está em
-[`docs/github-packages.md`](docs/github-packages.md).
+[`docs/github-packages.md`](docs/github-packages.md). A matriz final de aceite
+está em [`docs/acceptance.md`](docs/acceptance.md).
 
 ## Licença e publicação
 

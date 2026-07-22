@@ -14,6 +14,8 @@ import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { findPdfPython } from "../src/pdf/python.mjs";
+
 const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const exampleSource = resolve(packageRoot, "examples/minimal-playwright");
 
@@ -86,7 +88,7 @@ try {
     throw new Error("Steps ou attachments do exemplo não foram serializados.");
   }
 
-  if (process.env.PROGNUM_REPORT_PYTHON) {
+  if (findPdfPython(process.env)) {
     run("pnpm", ["report:pdf"], exampleRoot);
     if (!existsSync(resolve(exampleRoot, "output/pdf/playwright-report.pdf"))) {
       throw new Error("O exemplo não gerou o PDF esperado.");

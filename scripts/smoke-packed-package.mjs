@@ -11,9 +11,11 @@ import {
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, join, resolve } from "node:path";
+import { dirname, extname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createServer } from "node:net";
+
+import { findPdfPython } from "../src/pdf/python.mjs";
 
 const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const artifactsDir = resolve(packageRoot, ".artifacts");
@@ -40,6 +42,93 @@ function run(command, arguments_, cwd) {
     );
   }
   return result;
+}
+
+function auditTarball(tarballPath) {
+  const entries = run("tar", ["-tzf", tarballPath], packageRoot).stdout
+    .trim()
+    .split("\n");
+  const required = [
+    "package/package.json",
+    "package/README.md",
+    "package/CHANGELOG.md",
+    "package/bin/cli.mjs",
+    "package/dist/ui/index.html",
+    "package/pdf/build_report.py",
+    "package/runtime/reporter.mjs",
+    "package/src/cli/main.mjs",
+    "package/src/pdf/python.mjs",
+    "package/docs/acceptance.md",
+  ];
+  const forbiddenPrefixes = [
+    "package/reference/",
+    "package/tests/",
+    "package/examples/",
+    "package/ui/",
+    "package/scripts/",
+  ];
+
+  for (const path of required) {
+    if (!entries.includes(path)) {
+      throw new Error(`Arquivo obrigatório ausente do tarball: ${path}`);
+    }
+  }
+  if (!entries.some((path) => /^package\/dist\/ui\/assets\/.*\.js$/u.test(path))) {
+    throw new Error("Bundle JavaScript da interface ausente do tarball.");
+  }
+  if (!entries.some((path) => /^package\/dist\/ui\/assets\/.*\.css$/u.test(path))) {
+    throw new Error("Bundle CSS da interface ausente do tarball.");
+  }
+  for (const path of entries) {
+    if (
+      path === "package/.npmrc" ||
+      path === "package/pnpm-lock.yaml" ||
+      forbiddenPrefixes.some((prefix) => path.startsWith(prefix))
+    ) {
+      throw new Error(`Arquivo interno incluído indevidamente: ${path}`);
+    }
+  }
+}
+
+function auditInstalledPackage(packageDir) {
+  const textExtensions = new Set([
+    ".css",
+    ".html",
+    ".js",
+    ".json",
+    ".md",
+    ".mjs",
+    ".py",
+    ".ts",
+  ]);
+  const forbiddenPatterns = [
+    ["token GitHub", /(?:ghp_|github_pat_)[a-z0-9_]{16,}/iu],
+    ["caminho local macOS", /\/Users\//u],
+    ["caminho local Windows", /[a-z]:[\\/]Users[\\/]/iu],
+    ["projeto de origem", /Fluxo de tarefas CDHU|Documents[\\/]Automacoes/iu],
+    ["regra CDHU", /\bCDHU\b/u],
+  ];
+  const pending = [packageDir];
+
+  while (pending.length) {
+    const directory = pending.pop();
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      const path = resolve(directory, entry.name);
+      if (entry.isDirectory()) {
+        pending.push(path);
+        continue;
+      }
+      if (!textExtensions.has(extname(path))) continue;
+      const source = readFileSync(path, "utf8");
+      for (const [label, pattern] of forbiddenPatterns) {
+        if (pattern.test(source)) {
+          throw new Error(
+            `${label} encontrado no pacote: ${relative(packageDir, path)}`,
+          );
+        }
+      }
+    }
+  }
 }
 
 async function reserveFreePort() {
@@ -140,6 +229,7 @@ if (tarballs.length !== 1) {
 }
 
 const tarballPath = resolve(artifactsDir, tarballs[0]);
+auditTarball(tarballPath);
 const consumerRoot = mkdtempSync(join(tmpdir(), "prognum-report-smoke-"));
 
 try {
@@ -173,6 +263,11 @@ try {
     ],
     consumerRoot,
   );
+  const installedPackage = resolve(
+    consumerRoot,
+    "node_modules/@prognum/playwright-report",
+  );
+  auditInstalledPackage(installedPackage);
   run("pnpm", ["exec", "prognum-playwright-report", "init"], consumerRoot);
 
   const initializedPackage = JSON.parse(
@@ -241,7 +336,7 @@ try {
     throw new Error("Renderer de PDF ausente no pacote instalado.");
   }
 
-  if (process.env.PROGNUM_REPORT_PYTHON) {
+  if (findPdfPython(process.env)) {
     run(
       "pnpm",
       ["exec", "prognum-playwright-report", "pdf"],

@@ -79,6 +79,7 @@ pnpm test:ui
 pnpm test:pdf
 pnpm test:example
 pnpm test:pack
+pnpm verify
 git diff --check
 ```
 
